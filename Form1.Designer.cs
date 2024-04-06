@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            ColumnHeader columnHeader1;
+            ColumnHeader columnHeader2;
+            ColumnHeader columnHeader3;
+            ColumnHeader columnHeader4;
+            ColumnHeader columnHeader5;
             TreeNode treeNode1 = new TreeNode("道具");
             TreeNode treeNode2 = new TreeNode("武器");
             TreeNode treeNode3 = new TreeNode("防具");
@@ -47,12 +52,14 @@
             treeView1 = new TreeView1();
             splitContainer3 = new SplitContainer();
             listView_SearchResult = new ListView();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
             folderBrowserDialog1 = new FolderBrowserDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            查找调用ToolStripMenuItem = new ToolStripMenuItem();
+            SearchReferenceToolStripMenuItem = new ToolStripMenuItem();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -67,6 +74,30 @@
             splitContainer3.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "MapID";
+            columnHeader1.Width = 80;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "EventID";
+            columnHeader2.Width = 80;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "EventName";
+            columnHeader3.Width = 150;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "MapName";
+            columnHeader4.Width = 150;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Page";
             // 
             // menuStrip1
             // 
@@ -89,7 +120,7 @@
             打开项目ToolStripMenuItem.Name = "打开项目ToolStripMenuItem";
             打开项目ToolStripMenuItem.Size = new Size(124, 22);
             打开项目ToolStripMenuItem.Text = "打开项目";
-            打开项目ToolStripMenuItem.Click += 打开项目ToolStripMenuItem_Click;
+            打开项目ToolStripMenuItem.Click += OpenProjectToolStripMenuItem_Click;
             // 
             // statusStrip1
             // 
@@ -185,46 +216,32 @@
             // 
             splitContainer3.Panel1.Controls.Add(listView_SearchResult);
             splitContainer3.Size = new Size(829, 646);
-            splitContainer3.SplitterDistance = 508;
+            splitContainer3.SplitterDistance = 592;
             splitContainer3.TabIndex = 0;
             // 
             // listView_SearchResult
             // 
-            listView_SearchResult.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
+            listView_SearchResult.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
             listView_SearchResult.Dock = DockStyle.Fill;
             listView_SearchResult.Location = new Point(0, 0);
             listView_SearchResult.Name = "listView_SearchResult";
-            listView_SearchResult.Size = new Size(508, 646);
+            listView_SearchResult.Size = new Size(592, 646);
             listView_SearchResult.TabIndex = 0;
             listView_SearchResult.UseCompatibleStateImageBehavior = false;
             listView_SearchResult.View = View.Details;
             // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "Map";
-            columnHeader1.Width = 150;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Event";
-            columnHeader2.Width = 250;
-            // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { 查找调用ToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { SearchReferenceToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(125, 26);
             contextMenuStrip1.ItemClicked += contextMenuStrip1_ItemClicked;
             // 
             // 查找调用ToolStripMenuItem
             // 
-            查找调用ToolStripMenuItem.Name = "查找调用ToolStripMenuItem";
-            查找调用ToolStripMenuItem.Size = new Size(124, 22);
-            查找调用ToolStripMenuItem.Text = "查找调用";
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Page";
+            SearchReferenceToolStripMenuItem.Name = "查找调用ToolStripMenuItem";
+            SearchReferenceToolStripMenuItem.Size = new Size(124, 22);
+            SearchReferenceToolStripMenuItem.Text = "查找调用";
             // 
             // Form1
             // 
@@ -269,11 +286,13 @@
         private TreeView1 treeView1;
         private FolderBrowserDialog folderBrowserDialog1;
         private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem 查找调用ToolStripMenuItem;
+        private ToolStripMenuItem SearchReferenceToolStripMenuItem;
         private SplitContainer splitContainer3;
         private ListView listView_SearchResult;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
     }
 }

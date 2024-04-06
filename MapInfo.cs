@@ -1,10 +1,10 @@
-﻿using Arche.RpgMaker2MV.VXACE;
-
+﻿using RubyMarshal.Types;
 namespace RpgMakerVXAceEventSearcher
 {
-    internal class MapInfo
+    internal sealed class MapInfo
     {
-        public Map Map { get; set; }
+        public Base Map{ get; set; }
         public string Name { get; set; }
+        public int ID { get; set; }
     }
 }
