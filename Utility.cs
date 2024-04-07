@@ -4,12 +4,6 @@ namespace RpgMakerVXAceEventSearcher
 {
     internal static class Utility
     {
-        
-        public static IEnumerable<T> ToEnumerable<T>(this IEnumerator<T> enumerator)
-        {
-            while (enumerator.MoveNext())
-                yield return enumerator.Current;
-        }
 
         public class SearchCommandResult(int pageIndex, string evName, string mapName,int mapId,int eventId)
         {
@@ -33,7 +27,6 @@ namespace RpgMakerVXAceEventSearcher
                     int pageIndex = 0;
                     foreach (var page in ev.Value.AsObject()["@pages"].AsArray())
                     {
-                        bool evFlag = false;
                         foreach (var _cmd in page.AsObject()["@list"].AsArray())
                         {
                             var cmd = _cmd.AsObject();
@@ -44,11 +37,11 @@ namespace RpgMakerVXAceEventSearcher
                             {
                                 yield return new SearchCommandResult(
                                     pageIndex,
-                                    ev.Value.AsObject()["@name"].AsInstanceVariable().Name.ToString(), 
+                                    ev.Value.AsObject()["@name"].AsInstanceVariable().Base.AsString().Value, 
                                     map.Name,
                                     map.ID,
                                     ev.Value.AsObject()["@id"].AsFixnum().ToInt32()
-                                    ); 
+                                ); 
                                 break;
                             }
                         }

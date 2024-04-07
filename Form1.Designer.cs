@@ -41,6 +41,7 @@
             TreeNode treeNode5 = new TreeNode("公共事件");
             TreeNode treeNode6 = new TreeNode("开关");
             TreeNode treeNode7 = new TreeNode("人物");
+            TreeNode treeNode8 = new TreeNode("敌人");
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
             打开项目ToolStripMenuItem = new ToolStripMenuItem();
@@ -201,7 +202,9 @@
             treeNode6.Text = "开关";
             treeNode7.Name = "节点6";
             treeNode7.Text = "人物";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1, treeNode2, treeNode3, treeNode4, treeNode5, treeNode6, treeNode7 });
+            treeNode8.Name = "节点7";
+            treeNode8.Text = "敌人";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1, treeNode2, treeNode3, treeNode4, treeNode5, treeNode6, treeNode7, treeNode8 });
             treeView1.Size = new Size(338, 576);
             treeView1.TabIndex = 0;
             treeView1.NodeMouseClick += treeView1_NodeMouseClick;
@@ -237,9 +240,9 @@
             contextMenuStrip1.Size = new Size(125, 26);
             contextMenuStrip1.ItemClicked += contextMenuStrip1_ItemClicked;
             // 
-            // 查找调用ToolStripMenuItem
+            // SearchReferenceToolStripMenuItem
             // 
-            SearchReferenceToolStripMenuItem.Name = "查找调用ToolStripMenuItem";
+            SearchReferenceToolStripMenuItem.Name = "SearchReferenceToolStripMenuItem";
             SearchReferenceToolStripMenuItem.Size = new Size(124, 22);
             SearchReferenceToolStripMenuItem.Text = "查找调用";
             // 

@@ -1,12 +1,12 @@
 ﻿
 namespace RpgMakerVXAceEventSearcher
 {
-    internal enum EnumItemType { Item = 0, Weapon=1, Arctor=6 , Event=4, Variable=3, Switch=5 }
-    internal class Item
+    internal enum EnumItemType { Item = 0, Weapon=1, Armor = 2 , Variable=3, Event = 4, Switch=5, Arctor = 6 ,Enemy=7 }
+    internal class Item(int id,string name,EnumItemType enumItemType)
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public EnumItemType ItemType { get; set; }
+        public int Id { get;private set; } = id;
+        public string Name { get;private set; } = name;
+        public EnumItemType ItemType { get;private set; } = enumItemType;
         public override string ToString()=> $"id:{Id} Name:{Name}";
     }
 }
