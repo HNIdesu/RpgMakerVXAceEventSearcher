@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgMakerVXAceEventSearcher", "RpgMakerVXAceEventSearcher\RpgMakerVXAceEventSearcher.csproj", "{539D6778-EACA-4860-831C-C86FBEF9331D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RubyMarshal", "RubyMarshal\RubyMarshal\RubyMarshal.csproj", "{A106F390-8C02-4E89-86D7-154BF14A5874}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgMakerVXAceEventSearcher", "RpgMakerVXAceEventSearcher.csproj", "{7B653E17-8611-4AFD-892E-BEED94EBAD78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{539D6778-EACA-4860-831C-C86FBEF9331D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{539D6778-EACA-4860-831C-C86FBEF9331D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{539D6778-EACA-4860-831C-C86FBEF9331D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{539D6778-EACA-4860-831C-C86FBEF9331D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A106F390-8C02-4E89-86D7-154BF14A5874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A106F390-8C02-4E89-86D7-154BF14A5874}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A106F390-8C02-4E89-86D7-154BF14A5874}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A106F390-8C02-4E89-86D7-154BF14A5874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B653E17-8611-4AFD-892E-BEED94EBAD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B653E17-8611-4AFD-892E-BEED94EBAD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B653E17-8611-4AFD-892E-BEED94EBAD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B653E17-8611-4AFD-892E-BEED94EBAD78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
