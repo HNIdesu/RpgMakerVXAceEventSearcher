@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="RubyMarshal">
-      <HintPath>..\RubyMarshal\RubyMarshal\bin\Debug\net8.0\RubyMarshal.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\RubyMarshal\RubyMarshal\RubyMarshal.csproj" />
   </ItemGroup>
 
 </Project>
