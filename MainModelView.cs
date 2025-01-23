@@ -190,11 +190,12 @@ namespace RpgMakerVXAceEventSearcher
                 else if (filename.EndsWith("MapInfos.rvdata2"))
                 {
                     var root = new Decoder().Decode(File.OpenRead(filename)).AsHash();
+                    var json = root.ToJson();
                     foreach (var pair in root)
                     {
                         var index = pair.Key.AsFixnum().ToInt32() - 1;
                         MapList[index].Name = pair.Value.AsObject()["@name"].AsInstanceVariable().Base.AsString().Value;
-                        MapList[index].ID = pair.Value.AsObject()["@order"].AsFixnum()!.ToInt32();
+                        MapList[index].ID = pair.Key.AsFixnum()!.ToInt32();
                     }
 
                 }
