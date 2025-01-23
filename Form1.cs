@@ -61,7 +61,7 @@ namespace RpgMakerVXAceEventSearcher
                             var eventInfo = obj.AsObject();
                             itemList.Add(new Item(
                                 eventInfo["@id"].AsFixnum().ToInt32(),
-                                eventInfo["@name"].AsInstanceVariable().Base.AsString().Value,
+                                eventInfo["@name"].AsInstanceVariable()?.Base.AsString()?.Value,
                                 EnumItemType.Event
                             ));
                         }
@@ -237,13 +237,13 @@ namespace RpgMakerVXAceEventSearcher
 
                 foreach (var result in searchResult)
                 {
-                    listView_SearchResult.Items.Add(new ListViewItem(new string[5] {
+                    listView_SearchResult.Items.Add(new ListViewItem([
                         result.MapID.ToString(),
-                        result.EventID.ToString(),
                         result.MapName,
+                        result.EventID.ToString(),
                         result.EventName,
                         (1+result.PageIndex).ToString()
-                    }));
+                    ]));
                 }
             }
             

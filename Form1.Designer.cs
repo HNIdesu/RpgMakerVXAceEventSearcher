@@ -51,7 +51,6 @@
             button1 = new Button();
             textBox1 = new TextBox();
             treeView1 = new TreeView1();
-            splitContainer3 = new SplitContainer();
             listView_SearchResult = new ListView();
             folderBrowserDialog1 = new FolderBrowserDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -70,9 +69,6 @@
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
-            splitContainer3.Panel1.SuspendLayout();
-            splitContainer3.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -143,7 +139,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(splitContainer3);
+            splitContainer1.Panel2.Controls.Add(listView_SearchResult);
             splitContainer1.Size = new Size(1171, 646);
             splitContainer1.SplitterDistance = 338;
             splitContainer1.TabIndex = 2;
@@ -209,27 +205,14 @@
             treeView1.TabIndex = 0;
             treeView1.NodeMouseClick += treeView1_NodeMouseClick;
             // 
-            // splitContainer3
-            // 
-            splitContainer3.Dock = DockStyle.Fill;
-            splitContainer3.Location = new Point(0, 0);
-            splitContainer3.Name = "splitContainer3";
-            // 
-            // splitContainer3.Panel1
-            // 
-            splitContainer3.Panel1.Controls.Add(listView_SearchResult);
-            splitContainer3.Size = new Size(829, 646);
-            splitContainer3.SplitterDistance = 592;
-            splitContainer3.TabIndex = 0;
-            // 
             // listView_SearchResult
             // 
-            listView_SearchResult.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
+            listView_SearchResult.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader4, columnHeader2, columnHeader3, columnHeader5 });
             listView_SearchResult.Dock = DockStyle.Fill;
             listView_SearchResult.Location = new Point(0, 0);
             listView_SearchResult.Name = "listView_SearchResult";
-            listView_SearchResult.Size = new Size(592, 646);
-            listView_SearchResult.TabIndex = 0;
+            listView_SearchResult.Size = new Size(829, 646);
+            listView_SearchResult.TabIndex = 1;
             listView_SearchResult.UseCompatibleStateImageBehavior = false;
             listView_SearchResult.View = View.Details;
             // 
@@ -268,9 +251,6 @@
             splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
-            splitContainer3.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
-            splitContainer3.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -290,12 +270,6 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem SearchReferenceToolStripMenuItem;
-        private SplitContainer splitContainer3;
         private ListView listView_SearchResult;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader5;
     }
 }
