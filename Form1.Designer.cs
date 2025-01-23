@@ -34,14 +34,9 @@
             ColumnHeader columnHeader3;
             ColumnHeader columnHeader4;
             ColumnHeader columnHeader5;
-            TreeNode treeNode1 = new TreeNode("道具");
-            TreeNode treeNode2 = new TreeNode("武器");
-            TreeNode treeNode3 = new TreeNode("防具");
-            TreeNode treeNode4 = new TreeNode("变量");
-            TreeNode treeNode5 = new TreeNode("公共事件");
-            TreeNode treeNode6 = new TreeNode("开关");
-            TreeNode treeNode7 = new TreeNode("人物");
-            TreeNode treeNode8 = new TreeNode("敌人");
+            ColumnHeader columnHeader_Id;
+            ColumnHeader columnHeader_Name;
+            ColumnHeader columnHeader_Type;
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
             打开项目ToolStripMenuItem = new ToolStripMenuItem();
@@ -50,7 +45,7 @@
             splitContainer2 = new SplitContainer();
             button1 = new Button();
             textBox1 = new TextBox();
-            treeView1 = new TreeView1();
+            listView1 = new ListView();
             listView_SearchResult = new ListView();
             folderBrowserDialog1 = new FolderBrowserDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -60,6 +55,9 @@
             columnHeader3 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
+            columnHeader_Id = new ColumnHeader();
+            columnHeader_Name = new ColumnHeader();
+            columnHeader_Type = new ColumnHeader();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -95,6 +93,20 @@
             // columnHeader5
             // 
             columnHeader5.Text = "Page";
+            // 
+            // columnHeader_Id
+            // 
+            columnHeader_Id.Text = "Id";
+            // 
+            // columnHeader_Name
+            // 
+            columnHeader_Name.Text = "Name";
+            columnHeader_Name.Width = 200;
+            // 
+            // columnHeader_Type
+            // 
+            columnHeader_Type.Text = "Type";
+            columnHeader_Type.Width = 100;
             // 
             // menuStrip1
             // 
@@ -141,7 +153,7 @@
             // 
             splitContainer1.Panel2.Controls.Add(listView_SearchResult);
             splitContainer1.Size = new Size(1171, 646);
-            splitContainer1.SplitterDistance = 338;
+            splitContainer1.SplitterDistance = 426;
             splitContainer1.TabIndex = 2;
             // 
             // splitContainer2
@@ -158,14 +170,14 @@
             // 
             // splitContainer2.Panel2
             // 
-            splitContainer2.Panel2.Controls.Add(treeView1);
-            splitContainer2.Size = new Size(338, 646);
-            splitContainer2.SplitterDistance = 66;
+            splitContainer2.Panel2.Controls.Add(listView1);
+            splitContainer2.Size = new Size(426, 646);
+            splitContainer2.SplitterDistance = 49;
             splitContainer2.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(278, 21);
+            button1.Location = new Point(289, 13);
             button1.Name = "button1";
             button1.Size = new Size(47, 23);
             button1.TabIndex = 1;
@@ -174,36 +186,24 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(12, 21);
+            textBox1.Location = new Point(23, 13);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(246, 23);
             textBox1.TabIndex = 0;
             // 
-            // treeView1
+            // listView1
             // 
-            treeView1.Dock = DockStyle.Fill;
-            treeView1.Location = new Point(0, 0);
-            treeView1.Name = "treeView1";
-            treeNode1.Name = "节点0";
-            treeNode1.Text = "道具";
-            treeNode2.Name = "节点1";
-            treeNode2.Text = "武器";
-            treeNode3.Name = "节点2";
-            treeNode3.Text = "防具";
-            treeNode4.Name = "节点3";
-            treeNode4.Text = "变量";
-            treeNode5.Name = "节点4";
-            treeNode5.Text = "公共事件";
-            treeNode6.Name = "节点5";
-            treeNode6.Text = "开关";
-            treeNode7.Name = "节点6";
-            treeNode7.Text = "人物";
-            treeNode8.Name = "节点7";
-            treeNode8.Text = "敌人";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1, treeNode2, treeNode3, treeNode4, treeNode5, treeNode6, treeNode7, treeNode8 });
-            treeView1.Size = new Size(338, 576);
-            treeView1.TabIndex = 0;
-            treeView1.NodeMouseClick += treeView1_NodeMouseClick;
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader_Id, columnHeader_Name, columnHeader_Type });
+            listView1.Dock = DockStyle.Fill;
+            listView1.FullRowSelect = true;
+            listView1.Location = new Point(0, 0);
+            listView1.MultiSelect = false;
+            listView1.Name = "listView1";
+            listView1.Size = new Size(426, 593);
+            listView1.TabIndex = 0;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Details;
+            listView1.MouseUp += listView1_MouseUp;
             // 
             // listView_SearchResult
             // 
@@ -211,7 +211,7 @@
             listView_SearchResult.Dock = DockStyle.Fill;
             listView_SearchResult.Location = new Point(0, 0);
             listView_SearchResult.Name = "listView_SearchResult";
-            listView_SearchResult.Size = new Size(829, 646);
+            listView_SearchResult.Size = new Size(741, 646);
             listView_SearchResult.TabIndex = 1;
             listView_SearchResult.UseCompatibleStateImageBehavior = false;
             listView_SearchResult.View = View.Details;
@@ -266,10 +266,10 @@
         private SplitContainer splitContainer2;
         private Button button1;
         private TextBox textBox1;
-        private TreeView1 treeView1;
         private FolderBrowserDialog folderBrowserDialog1;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem SearchReferenceToolStripMenuItem;
         private ListView listView_SearchResult;
+        private ListView listView1;
     }
 }
