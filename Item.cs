@@ -1,7 +1,7 @@
 ﻿
 namespace RpgMakerVXAceEventSearcher
 {
-    internal enum EnumItemType { Item = 0, Weapon=1, Armor = 2 , Variable=3, Event = 4, Switch=5, Actor = 6 ,Enemy=7 }
+    internal enum EnumItemType { Item = 0, Weapon=1, Armor = 2 , Variable=3, Event = 4, Switch=5, Actor = 6 ,Enemy=7, Troop=8 }
     internal class Item(int id,string name,EnumItemType enumItemType)
     {
         public int Id { get;private set; } = id;

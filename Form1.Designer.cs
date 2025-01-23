@@ -58,6 +58,7 @@
             folderBrowserDialog1 = new FolderBrowserDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
             SearchReferenceToolStripMenuItem = new ToolStripMenuItem();
+            troopToolStripMenuItem = new ToolStripMenuItem();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
@@ -141,7 +142,7 @@
             // 
             // filterToolStripMenuItem
             // 
-            filterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { itemToolStripMenuItem, weaponToolStripMenuItem, armorToolStripMenuItem, variableToolStripMenuItem, eventToolStripMenuItem, switchToolStripMenuItem, actorToolStripMenuItem1, enemyToolStripMenuItem });
+            filterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { itemToolStripMenuItem, weaponToolStripMenuItem, armorToolStripMenuItem, variableToolStripMenuItem, eventToolStripMenuItem, switchToolStripMenuItem, actorToolStripMenuItem1, enemyToolStripMenuItem, troopToolStripMenuItem });
             filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             filterToolStripMenuItem.Size = new Size(44, 21);
             filterToolStripMenuItem.Text = "筛选";
@@ -202,6 +203,7 @@
             enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
             enemyToolStripMenuItem.Size = new Size(180, 22);
             enemyToolStripMenuItem.Text = "Enemy";
+            enemyToolStripMenuItem.Visible = false;
             // 
             // statusStrip1
             // 
@@ -292,6 +294,12 @@
             SearchReferenceToolStripMenuItem.Size = new Size(124, 22);
             SearchReferenceToolStripMenuItem.Text = "查找调用";
             // 
+            // troopToolStripMenuItem
+            // 
+            troopToolStripMenuItem.Name = "troopToolStripMenuItem";
+            troopToolStripMenuItem.Size = new Size(180, 22);
+            troopToolStripMenuItem.Text = "Troop";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -343,5 +351,6 @@
         private ToolStripMenuItem switchToolStripMenuItem;
         private ToolStripMenuItem actorToolStripMenuItem1;
         private ToolStripMenuItem enemyToolStripMenuItem;
+        private ToolStripMenuItem troopToolStripMenuItem;
     }
 }

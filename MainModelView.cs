@@ -89,6 +89,16 @@ namespace RpgMakerVXAceEventSearcher
                         break;
                         
                     }
+                case EnumItemType.Troop:
+                    {
+                        searchResult = Utility.SearchCommands(MapList, cmd =>
+                                cmd.Code == 301//战斗处理
+                                && cmd.Parameters.Count > 1
+                                && cmd.Parameters[1] is Fixnum
+                                && cmd.Parameters[1].AsFixnum()!.ToInt32() == item.Id
+                            );
+                        break;
+                    }
                 default:
                     break;
             }
@@ -158,6 +168,37 @@ namespace RpgMakerVXAceEventSearcher
                             weaponInfo["@id"].AsFixnum().ToInt32(),
                             weaponInfo["@name"].AsInstanceVariable().Base.AsString().Value,
                             EnumItemType.Weapon
+                        ));
+                    }
+                }/*敌人
+                else if (filename.EndsWith("Enemies.rvdata2"))
+                {
+                    var root = new Decoder().Decode(File.OpenRead(filename)).AsArray();
+                    foreach (var obj in root)
+                    {
+                        if (obj is Nil)
+                            continue;
+                        var enemyInfo = obj.AsObject();
+                        _ItemList.Add(new Item(
+                            enemyInfo["@id"].AsFixnum().ToInt32(),
+                            enemyInfo["@name"].AsInstanceVariable().Base.AsString().Value,
+                            EnumItemType.Enemy
+                        ));
+                    }
+                }*/
+                //敌群
+                else  if (filename.EndsWith("Troops.rvdata2")) 
+                {
+                    var root = new Decoder().Decode(File.OpenRead(filename)).AsArray();
+                    foreach (var obj in root)
+                    {
+                        if (obj is Nil)
+                            continue;
+                        var troopInfo = obj.AsObject();
+                        _ItemList.Add(new Item(
+                            troopInfo["@id"].AsFixnum().ToInt32(),
+                            troopInfo["@name"].AsInstanceVariable().Base.AsString().Value,
+                            EnumItemType.Troop
                         ));
                     }
                 }
