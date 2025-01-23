@@ -5,11 +5,25 @@ namespace RpgMakerVXAceEventSearcher
 {
     internal class MainModelView
     {
-        public readonly List<Item> ItemList = [];
-        public readonly List<MapInfo> MapList = [];
-        public readonly List<Utility.SearchCommandResult> SearchResultList = [];
+        private readonly List<Item> _ItemList = [];
+        public List<Item> ItemList { get; private set; } = [];
+        public List<MapInfo> MapList { get; private set; } = [];
+        public List<Utility.SearchCommandResult> SearchResultList { get; private set; } = [];
 
-
+        public HashSet<EnumItemType> CheckedItemTypes { get; private set; } = [];
+        public string SearchQuery { get; set; } = "";
+        public void ApplyFilter()
+        {
+            ItemList.Clear();
+            if (string.IsNullOrEmpty(SearchQuery) && CheckedItemTypes.Count == 0)
+                ItemList.AddRange(_ItemList);
+            else
+                ItemList.AddRange(_ItemList.Where(item => 
+                    CheckedItemTypes.Contains(item.ItemType) &&
+                    item.Name.Contains(SearchQuery)
+                ));
+            
+        }
         public void SearchReferences(Item item)
         {
             SearchResultList.Clear();
@@ -81,10 +95,9 @@ namespace RpgMakerVXAceEventSearcher
             if (searchResult == null) return;
             SearchResultList.AddRange(searchResult);
         }
-
         public void LoadItemList(string gameDirectory)
         {
-            ItemList.Clear();
+            _ItemList.Clear();
             foreach (string filename in Directory.EnumerateFiles(gameDirectory, "*.rvdata2"))
             {
                 if (filename.EndsWith("Actors.rvdata2"))
@@ -95,7 +108,7 @@ namespace RpgMakerVXAceEventSearcher
                         if (obj is Nil)
                             continue;
                         var actorInfo = obj.AsObject();
-                        ItemList.Add(new Item(
+                        _ItemList.Add(new Item(
                             actorInfo["@id"].AsFixnum().ToInt32(),
                             actorInfo["@name"].AsInstanceVariable().Base.AsString().Value,
                             EnumItemType.Actor
@@ -110,7 +123,7 @@ namespace RpgMakerVXAceEventSearcher
                         if (obj is Nil)
                             continue;
                         var itemInfo = obj.AsObject();
-                        ItemList.Add(new Item(
+                        _ItemList.Add(new Item(
                             itemInfo["@id"].AsFixnum().ToInt32(),
                             itemInfo["@name"].AsInstanceVariable().Base.AsString().Value,
                             EnumItemType.Item
@@ -125,7 +138,7 @@ namespace RpgMakerVXAceEventSearcher
                         if (obj is Nil)
                             continue;
                         var eventInfo = obj.AsObject();
-                        ItemList.Add(new Item(
+                        _ItemList.Add(new Item(
                             eventInfo["@id"].AsFixnum().ToInt32(),
                             eventInfo["@name"].AsInstanceVariable()?.Base.AsString()?.Value,
                             EnumItemType.Event
@@ -141,7 +154,7 @@ namespace RpgMakerVXAceEventSearcher
                         if (obj is Nil)
                             continue;
                         var weaponInfo = obj.AsObject();
-                        ItemList.Add(new Item(
+                        _ItemList.Add(new Item(
                             weaponInfo["@id"].AsFixnum().ToInt32(),
                             weaponInfo["@name"].AsInstanceVariable().Base.AsString().Value,
                             EnumItemType.Weapon
@@ -157,7 +170,7 @@ namespace RpgMakerVXAceEventSearcher
                         {
                             if (obj is Nil) continue;
                             var variableInfo = obj.AsInstanceVariable();
-                            ItemList.Add(new Item(id++, variableInfo.Base.AsString().Value, EnumItemType.Variable));
+                            _ItemList.Add(new Item(id++, variableInfo.Base.AsString().Value, EnumItemType.Variable));
                         }
                     }
                     {
@@ -166,7 +179,7 @@ namespace RpgMakerVXAceEventSearcher
                         {
                             if (obj is Nil) continue;
                             var switchInfo = obj.AsInstanceVariable();
-                            ItemList.Add(new Item(id++, switchInfo.Base.AsString().Value, EnumItemType.Switch));
+                            _ItemList.Add(new Item(id++, switchInfo.Base.AsString().Value, EnumItemType.Switch));
                         }
                     }
                 }
@@ -193,7 +206,7 @@ namespace RpgMakerVXAceEventSearcher
                         if (obj is Nil)
                             continue;
                         var weaponInfo = obj.AsObject();
-                        ItemList.Add(new Item(
+                        _ItemList.Add(new Item(
                             weaponInfo["@id"].AsFixnum().ToInt32(),
                             weaponInfo["@name"].AsInstanceVariable().Base.AsString().Value,
                             EnumItemType.Armor
@@ -201,6 +214,8 @@ namespace RpgMakerVXAceEventSearcher
                     }
                 }
             }
+            ApplyFilter();
         }
+
     }
 }

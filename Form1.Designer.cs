@@ -40,11 +40,19 @@
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
             打开项目ToolStripMenuItem = new ToolStripMenuItem();
+            filterToolStripMenuItem = new ToolStripMenuItem();
+            itemToolStripMenuItem = new ToolStripMenuItem();
+            weaponToolStripMenuItem = new ToolStripMenuItem();
+            armorToolStripMenuItem = new ToolStripMenuItem();
+            variableToolStripMenuItem = new ToolStripMenuItem();
+            eventToolStripMenuItem = new ToolStripMenuItem();
+            switchToolStripMenuItem = new ToolStripMenuItem();
+            actorToolStripMenuItem1 = new ToolStripMenuItem();
+            enemyToolStripMenuItem = new ToolStripMenuItem();
             statusStrip1 = new StatusStrip();
             splitContainer1 = new SplitContainer();
             splitContainer2 = new SplitContainer();
-            button1 = new Button();
-            textBox1 = new TextBox();
+            textBox_FilterItem = new TextBox();
             listView1 = new ListView();
             listView_SearchResult = new ListView();
             folderBrowserDialog1 = new FolderBrowserDialog();
@@ -110,7 +118,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem, filterToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1171, 25);
@@ -130,6 +138,70 @@
             打开项目ToolStripMenuItem.Size = new Size(124, 22);
             打开项目ToolStripMenuItem.Text = "打开项目";
             打开项目ToolStripMenuItem.Click += OpenProjectToolStripMenuItem_Click;
+            // 
+            // filterToolStripMenuItem
+            // 
+            filterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { itemToolStripMenuItem, weaponToolStripMenuItem, armorToolStripMenuItem, variableToolStripMenuItem, eventToolStripMenuItem, switchToolStripMenuItem, actorToolStripMenuItem1, enemyToolStripMenuItem });
+            filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            filterToolStripMenuItem.Size = new Size(44, 21);
+            filterToolStripMenuItem.Text = "筛选";
+            filterToolStripMenuItem.DropDownItemClicked += filterToolStripMenuItem_DropDownItemClicked;
+            // 
+            // itemToolStripMenuItem
+            // 
+            itemToolStripMenuItem.CheckOnClick = true;
+            itemToolStripMenuItem.Name = "itemToolStripMenuItem";
+            itemToolStripMenuItem.Size = new Size(180, 22);
+            itemToolStripMenuItem.Text = "Item";
+            // 
+            // weaponToolStripMenuItem
+            // 
+            weaponToolStripMenuItem.CheckOnClick = true;
+            weaponToolStripMenuItem.Name = "weaponToolStripMenuItem";
+            weaponToolStripMenuItem.Size = new Size(180, 22);
+            weaponToolStripMenuItem.Text = "Weapon";
+            // 
+            // armorToolStripMenuItem
+            // 
+            armorToolStripMenuItem.CheckOnClick = true;
+            armorToolStripMenuItem.Name = "armorToolStripMenuItem";
+            armorToolStripMenuItem.Size = new Size(180, 22);
+            armorToolStripMenuItem.Text = "Armor";
+            // 
+            // variableToolStripMenuItem
+            // 
+            variableToolStripMenuItem.CheckOnClick = true;
+            variableToolStripMenuItem.Name = "variableToolStripMenuItem";
+            variableToolStripMenuItem.Size = new Size(180, 22);
+            variableToolStripMenuItem.Text = "Variable";
+            // 
+            // eventToolStripMenuItem
+            // 
+            eventToolStripMenuItem.CheckOnClick = true;
+            eventToolStripMenuItem.Name = "eventToolStripMenuItem";
+            eventToolStripMenuItem.Size = new Size(180, 22);
+            eventToolStripMenuItem.Text = "Event";
+            // 
+            // switchToolStripMenuItem
+            // 
+            switchToolStripMenuItem.CheckOnClick = true;
+            switchToolStripMenuItem.Name = "switchToolStripMenuItem";
+            switchToolStripMenuItem.Size = new Size(180, 22);
+            switchToolStripMenuItem.Text = "Switch";
+            // 
+            // actorToolStripMenuItem1
+            // 
+            actorToolStripMenuItem1.CheckOnClick = true;
+            actorToolStripMenuItem1.Name = "actorToolStripMenuItem1";
+            actorToolStripMenuItem1.Size = new Size(180, 22);
+            actorToolStripMenuItem1.Text = "Actor";
+            // 
+            // enemyToolStripMenuItem
+            // 
+            enemyToolStripMenuItem.CheckOnClick = true;
+            enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
+            enemyToolStripMenuItem.Size = new Size(180, 22);
+            enemyToolStripMenuItem.Text = "Enemy";
             // 
             // statusStrip1
             // 
@@ -165,31 +237,22 @@
             // 
             // splitContainer2.Panel1
             // 
-            splitContainer2.Panel1.Controls.Add(button1);
-            splitContainer2.Panel1.Controls.Add(textBox1);
+            splitContainer2.Panel1.Controls.Add(textBox_FilterItem);
             // 
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(listView1);
             splitContainer2.Size = new Size(426, 646);
-            splitContainer2.SplitterDistance = 49;
+            splitContainer2.SplitterDistance = 27;
             splitContainer2.TabIndex = 0;
             // 
-            // button1
+            // textBox_FilterItem
             // 
-            button1.Location = new Point(289, 13);
-            button1.Name = "button1";
-            button1.Size = new Size(47, 23);
-            button1.TabIndex = 1;
-            button1.Text = "搜索";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(23, 13);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(246, 23);
-            textBox1.TabIndex = 0;
+            textBox_FilterItem.Location = new Point(3, 3);
+            textBox_FilterItem.Name = "textBox_FilterItem";
+            textBox_FilterItem.Size = new Size(420, 23);
+            textBox_FilterItem.TabIndex = 0;
+            textBox_FilterItem.TextChanged += textBox_FilterItem_TextChanged;
             // 
             // listView1
             // 
@@ -199,7 +262,7 @@
             listView1.Location = new Point(0, 0);
             listView1.MultiSelect = false;
             listView1.Name = "listView1";
-            listView1.Size = new Size(426, 593);
+            listView1.Size = new Size(426, 615);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -240,6 +303,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "RMEventSearcher";
+            Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
@@ -264,12 +328,20 @@
         private StatusStrip statusStrip1;
         private SplitContainer splitContainer1;
         private SplitContainer splitContainer2;
-        private Button button1;
-        private TextBox textBox1;
+        private TextBox textBox_FilterItem;
         private FolderBrowserDialog folderBrowserDialog1;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem SearchReferenceToolStripMenuItem;
         private ListView listView_SearchResult;
         private ListView listView1;
+        private ToolStripMenuItem filterToolStripMenuItem;
+        private ToolStripMenuItem itemToolStripMenuItem;
+        private ToolStripMenuItem weaponToolStripMenuItem;
+        private ToolStripMenuItem armorToolStripMenuItem;
+        private ToolStripMenuItem variableToolStripMenuItem;
+        private ToolStripMenuItem eventToolStripMenuItem;
+        private ToolStripMenuItem switchToolStripMenuItem;
+        private ToolStripMenuItem actorToolStripMenuItem1;
+        private ToolStripMenuItem enemyToolStripMenuItem;
     }
 }

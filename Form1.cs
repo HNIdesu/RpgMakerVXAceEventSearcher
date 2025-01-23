@@ -24,7 +24,7 @@ namespace RpgMakerVXAceEventSearcher
                     Tag = item
                 }).ToArray());
             }
-                
+
         }
 
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -61,5 +61,48 @@ namespace RpgMakerVXAceEventSearcher
             }
         }
 
+        private void filterToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var text = e.ClickedItem?.Text;
+            if (text == null) return;
+            var toolStripMenuItem = e.ClickedItem as ToolStripMenuItem;
+            if (toolStripMenuItem == null) return;
+            var itemType = Enum.Parse(typeof(EnumItemType), text) as EnumItemType?;
+            if (itemType == null) return;
+            if (!toolStripMenuItem.Checked)
+                _MainModelView.CheckedItemTypes.Add(itemType.Value);
+            else
+                _MainModelView.CheckedItemTypes.Remove(itemType.Value);
+            _MainModelView.ApplyFilter();
+            listView1.Items.Clear();
+            listView1.Items.AddRange(_MainModelView.ItemList.Select(item => new ListViewItem([
+                item.Id.ToString(),
+                    item.Name,
+                    Enum.GetName(typeof(EnumItemType),item.ItemType)??""
+            ])
+            {
+                Tag = item
+            }).ToArray());
+        }
+
+        private void textBox_FilterItem_TextChanged(object sender, EventArgs e)
+        {
+            _MainModelView.SearchQuery = textBox_FilterItem.Text;
+            _MainModelView.ApplyFilter();
+            listView1.Items.Clear();
+            listView1.Items.AddRange(_MainModelView.ItemList.Select(item => new ListViewItem([
+                item.Id.ToString(),
+                    item.Name,
+                    Enum.GetName(typeof(EnumItemType),item.ItemType)??""
+            ])
+            {
+                Tag = item
+            }).ToArray());
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
