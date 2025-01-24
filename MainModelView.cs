@@ -8,7 +8,7 @@ namespace RpgMakerVXAceEventSearcher
         private readonly List<Item> _ItemList = [];
         public List<Item> ItemList { get; private set; } = [];
         public List<MapInfo> MapList { get; private set; } = [];
-        public List<Utility.SearchCommandResult> SearchResultList { get; private set; } = [];
+        public List<SearchCommandResult> SearchResultList { get; private set; } = [];
 
         public HashSet<EnumItemType> CheckedItemTypes { get; private set; } = [];
         public string SearchQuery { get; set; } = "";
@@ -27,7 +27,7 @@ namespace RpgMakerVXAceEventSearcher
         public void SearchReferences(Item item)
         {
             SearchResultList.Clear();
-            IEnumerable<Utility.SearchCommandResult>? searchResult = null;
+            IEnumerable<SearchCommandResult>? searchResult = null;
             switch (item.ItemType)
             {
                 case EnumItemType.Item:

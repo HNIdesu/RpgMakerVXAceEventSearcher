@@ -1,18 +1,10 @@
 ﻿using RubyMarshal.Types;
+using System.Xml.Linq;
 
 namespace RpgMakerVXAceEventSearcher
 {
     internal static class Utility
     {
-
-        public class SearchCommandResult(int pageIndex, string evName, string mapName,int mapId,int eventId)
-        {
-            public int PageIndex { get; private set; } = pageIndex;
-            public string EventName { get; private set; } = evName;
-            public string MapName { get; private set; } = mapName;
-            public int MapID { get; private set; } = mapId;
-            public int EventID { get; private set; } = eventId;
-        }
         public class Command(int code, List<Base> parameters)
         {
             public int Code { get; private set; } = code;
@@ -36,11 +28,15 @@ namespace RpgMakerVXAceEventSearcher
                             if (func(command))
                             {
                                 yield return new SearchCommandResult(
-                                    pageIndex,
-                                    ev.Value.AsObject()["@name"].AsInstanceVariable().Base.AsString().Value, 
-                                    map.Name,
-                                    map.ID,
-                                    ev.Value.AsObject()["@id"].AsFixnum().ToInt32()
+                                    pageIndex: pageIndex,
+                                    eventName: ev.Value.AsObject()["@name"].AsInstanceVariable().Base.AsString().Value, 
+                                    mapName: map.Name,
+                                    mapId: map.ID,
+                                    eventId: ev.Value.AsObject()["@id"].AsFixnum().ToInt32(),
+                                    location: new Point(
+                                        x: ev.Value.AsObject()["@x"].AsFixnum().ToInt32(),
+                                        y: ev.Value.AsObject()["@y"].AsFixnum().ToInt32()
+                                    )
                                 ); 
                                 break;
                             }

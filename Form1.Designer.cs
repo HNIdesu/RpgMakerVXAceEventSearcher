@@ -37,6 +37,7 @@
             ColumnHeader columnHeader_Id;
             ColumnHeader columnHeader_Name;
             ColumnHeader columnHeader_Type;
+            ColumnHeader columnHeader6;
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
             打开项目ToolStripMenuItem = new ToolStripMenuItem();
@@ -49,6 +50,7 @@
             switchToolStripMenuItem = new ToolStripMenuItem();
             actorToolStripMenuItem1 = new ToolStripMenuItem();
             enemyToolStripMenuItem = new ToolStripMenuItem();
+            troopToolStripMenuItem = new ToolStripMenuItem();
             statusStrip1 = new StatusStrip();
             splitContainer1 = new SplitContainer();
             splitContainer2 = new SplitContainer();
@@ -58,7 +60,6 @@
             folderBrowserDialog1 = new FolderBrowserDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
             SearchReferenceToolStripMenuItem = new ToolStripMenuItem();
-            troopToolStripMenuItem = new ToolStripMenuItem();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
@@ -67,6 +68,7 @@
             columnHeader_Id = new ColumnHeader();
             columnHeader_Name = new ColumnHeader();
             columnHeader_Type = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -117,6 +119,11 @@
             columnHeader_Type.Text = "Type";
             columnHeader_Type.Width = 100;
             // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Location";
+            columnHeader6.Width = 100;
+            // 
             // menuStrip1
             // 
             menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem, filterToolStripMenuItem });
@@ -152,58 +159,64 @@
             // 
             itemToolStripMenuItem.CheckOnClick = true;
             itemToolStripMenuItem.Name = "itemToolStripMenuItem";
-            itemToolStripMenuItem.Size = new Size(180, 22);
+            itemToolStripMenuItem.Size = new Size(125, 22);
             itemToolStripMenuItem.Text = "Item";
             // 
             // weaponToolStripMenuItem
             // 
             weaponToolStripMenuItem.CheckOnClick = true;
             weaponToolStripMenuItem.Name = "weaponToolStripMenuItem";
-            weaponToolStripMenuItem.Size = new Size(180, 22);
+            weaponToolStripMenuItem.Size = new Size(125, 22);
             weaponToolStripMenuItem.Text = "Weapon";
             // 
             // armorToolStripMenuItem
             // 
             armorToolStripMenuItem.CheckOnClick = true;
             armorToolStripMenuItem.Name = "armorToolStripMenuItem";
-            armorToolStripMenuItem.Size = new Size(180, 22);
+            armorToolStripMenuItem.Size = new Size(125, 22);
             armorToolStripMenuItem.Text = "Armor";
             // 
             // variableToolStripMenuItem
             // 
             variableToolStripMenuItem.CheckOnClick = true;
             variableToolStripMenuItem.Name = "variableToolStripMenuItem";
-            variableToolStripMenuItem.Size = new Size(180, 22);
+            variableToolStripMenuItem.Size = new Size(125, 22);
             variableToolStripMenuItem.Text = "Variable";
             // 
             // eventToolStripMenuItem
             // 
             eventToolStripMenuItem.CheckOnClick = true;
             eventToolStripMenuItem.Name = "eventToolStripMenuItem";
-            eventToolStripMenuItem.Size = new Size(180, 22);
+            eventToolStripMenuItem.Size = new Size(125, 22);
             eventToolStripMenuItem.Text = "Event";
             // 
             // switchToolStripMenuItem
             // 
             switchToolStripMenuItem.CheckOnClick = true;
             switchToolStripMenuItem.Name = "switchToolStripMenuItem";
-            switchToolStripMenuItem.Size = new Size(180, 22);
+            switchToolStripMenuItem.Size = new Size(125, 22);
             switchToolStripMenuItem.Text = "Switch";
             // 
             // actorToolStripMenuItem1
             // 
             actorToolStripMenuItem1.CheckOnClick = true;
             actorToolStripMenuItem1.Name = "actorToolStripMenuItem1";
-            actorToolStripMenuItem1.Size = new Size(180, 22);
+            actorToolStripMenuItem1.Size = new Size(125, 22);
             actorToolStripMenuItem1.Text = "Actor";
             // 
             // enemyToolStripMenuItem
             // 
             enemyToolStripMenuItem.CheckOnClick = true;
             enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
-            enemyToolStripMenuItem.Size = new Size(180, 22);
+            enemyToolStripMenuItem.Size = new Size(125, 22);
             enemyToolStripMenuItem.Text = "Enemy";
             enemyToolStripMenuItem.Visible = false;
+            // 
+            // troopToolStripMenuItem
+            // 
+            troopToolStripMenuItem.Name = "troopToolStripMenuItem";
+            troopToolStripMenuItem.Size = new Size(125, 22);
+            troopToolStripMenuItem.Text = "Troop";
             // 
             // statusStrip1
             // 
@@ -245,14 +258,15 @@
             // 
             splitContainer2.Panel2.Controls.Add(listView1);
             splitContainer2.Size = new Size(426, 646);
-            splitContainer2.SplitterDistance = 27;
+            splitContainer2.SplitterDistance = 25;
             splitContainer2.TabIndex = 0;
             // 
             // textBox_FilterItem
             // 
-            textBox_FilterItem.Location = new Point(3, 3);
+            textBox_FilterItem.Dock = DockStyle.Fill;
+            textBox_FilterItem.Location = new Point(0, 0);
             textBox_FilterItem.Name = "textBox_FilterItem";
-            textBox_FilterItem.Size = new Size(420, 23);
+            textBox_FilterItem.Size = new Size(426, 23);
             textBox_FilterItem.TabIndex = 0;
             textBox_FilterItem.TextChanged += textBox_FilterItem_TextChanged;
             // 
@@ -261,10 +275,11 @@
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader_Id, columnHeader_Name, columnHeader_Type });
             listView1.Dock = DockStyle.Fill;
             listView1.FullRowSelect = true;
+            listView1.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listView1.Location = new Point(0, 0);
             listView1.MultiSelect = false;
             listView1.Name = "listView1";
-            listView1.Size = new Size(426, 615);
+            listView1.Size = new Size(426, 617);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -272,9 +287,12 @@
             // 
             // listView_SearchResult
             // 
-            listView_SearchResult.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader4, columnHeader2, columnHeader3, columnHeader5 });
+            listView_SearchResult.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader4, columnHeader2, columnHeader3, columnHeader5, columnHeader6 });
             listView_SearchResult.Dock = DockStyle.Fill;
+            listView_SearchResult.FullRowSelect = true;
+            listView_SearchResult.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listView_SearchResult.Location = new Point(0, 0);
+            listView_SearchResult.MultiSelect = false;
             listView_SearchResult.Name = "listView_SearchResult";
             listView_SearchResult.Size = new Size(741, 646);
             listView_SearchResult.TabIndex = 1;
@@ -293,12 +311,6 @@
             SearchReferenceToolStripMenuItem.Name = "SearchReferenceToolStripMenuItem";
             SearchReferenceToolStripMenuItem.Size = new Size(124, 22);
             SearchReferenceToolStripMenuItem.Text = "查找调用";
-            // 
-            // troopToolStripMenuItem
-            // 
-            troopToolStripMenuItem.Name = "troopToolStripMenuItem";
-            troopToolStripMenuItem.Size = new Size(180, 22);
-            troopToolStripMenuItem.Text = "Troop";
             // 
             // Form1
             // 

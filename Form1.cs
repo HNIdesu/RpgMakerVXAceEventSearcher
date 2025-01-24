@@ -41,7 +41,8 @@ namespace RpgMakerVXAceEventSearcher
                         result.MapName,
                         result.EventID.ToString(),
                         result.EventName,
-                        (1+result.PageIndex).ToString()
+                        (1+result.PageIndex).ToString(),
+                        result.Location.ToString()
                     ]));
                 }
             }
@@ -77,8 +78,8 @@ namespace RpgMakerVXAceEventSearcher
             listView1.Items.Clear();
             listView1.Items.AddRange(_MainModelView.ItemList.Select(item => new ListViewItem([
                 item.Id.ToString(),
-                    item.Name,
-                    Enum.GetName(typeof(EnumItemType),item.ItemType)??""
+                item.Name,
+                Enum.GetName(typeof(EnumItemType),item.ItemType)??""
             ])
             {
                 Tag = item
