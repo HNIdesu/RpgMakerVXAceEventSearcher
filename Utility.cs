@@ -10,7 +10,7 @@ namespace RpgMakerVXAceEventSearcher
             public int Code { get; private set; } = code;
             public List<Base> Parameters { get; private set; } = parameters;
         }
-        public static IEnumerable<SearchCommandResult> SearchCommands(List<MapInfo> mapList,Func<Command,bool> func)
+        public static IEnumerable<SearchCommandResult> SearchFromCommands(List<MapInfo> mapList,Func<Command,bool> func)
         {
             foreach (var map in mapList)
             {
