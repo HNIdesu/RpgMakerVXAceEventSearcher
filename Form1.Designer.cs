@@ -159,63 +159,64 @@
             // 
             itemToolStripMenuItem.CheckOnClick = true;
             itemToolStripMenuItem.Name = "itemToolStripMenuItem";
-            itemToolStripMenuItem.Size = new Size(125, 22);
+            itemToolStripMenuItem.Size = new Size(180, 22);
             itemToolStripMenuItem.Text = "Item";
             // 
             // weaponToolStripMenuItem
             // 
             weaponToolStripMenuItem.CheckOnClick = true;
             weaponToolStripMenuItem.Name = "weaponToolStripMenuItem";
-            weaponToolStripMenuItem.Size = new Size(125, 22);
+            weaponToolStripMenuItem.Size = new Size(180, 22);
             weaponToolStripMenuItem.Text = "Weapon";
             // 
             // armorToolStripMenuItem
             // 
             armorToolStripMenuItem.CheckOnClick = true;
             armorToolStripMenuItem.Name = "armorToolStripMenuItem";
-            armorToolStripMenuItem.Size = new Size(125, 22);
+            armorToolStripMenuItem.Size = new Size(180, 22);
             armorToolStripMenuItem.Text = "Armor";
             // 
             // variableToolStripMenuItem
             // 
             variableToolStripMenuItem.CheckOnClick = true;
             variableToolStripMenuItem.Name = "variableToolStripMenuItem";
-            variableToolStripMenuItem.Size = new Size(125, 22);
+            variableToolStripMenuItem.Size = new Size(180, 22);
             variableToolStripMenuItem.Text = "Variable";
             // 
             // eventToolStripMenuItem
             // 
             eventToolStripMenuItem.CheckOnClick = true;
             eventToolStripMenuItem.Name = "eventToolStripMenuItem";
-            eventToolStripMenuItem.Size = new Size(125, 22);
+            eventToolStripMenuItem.Size = new Size(180, 22);
             eventToolStripMenuItem.Text = "Event";
             // 
             // switchToolStripMenuItem
             // 
             switchToolStripMenuItem.CheckOnClick = true;
             switchToolStripMenuItem.Name = "switchToolStripMenuItem";
-            switchToolStripMenuItem.Size = new Size(125, 22);
+            switchToolStripMenuItem.Size = new Size(180, 22);
             switchToolStripMenuItem.Text = "Switch";
             // 
             // actorToolStripMenuItem1
             // 
             actorToolStripMenuItem1.CheckOnClick = true;
             actorToolStripMenuItem1.Name = "actorToolStripMenuItem1";
-            actorToolStripMenuItem1.Size = new Size(125, 22);
+            actorToolStripMenuItem1.Size = new Size(180, 22);
             actorToolStripMenuItem1.Text = "Actor";
             // 
             // enemyToolStripMenuItem
             // 
             enemyToolStripMenuItem.CheckOnClick = true;
             enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
-            enemyToolStripMenuItem.Size = new Size(125, 22);
+            enemyToolStripMenuItem.Size = new Size(180, 22);
             enemyToolStripMenuItem.Text = "Enemy";
             enemyToolStripMenuItem.Visible = false;
             // 
             // troopToolStripMenuItem
             // 
+            troopToolStripMenuItem.CheckOnClick = true;
             troopToolStripMenuItem.Name = "troopToolStripMenuItem";
-            troopToolStripMenuItem.Size = new Size(125, 22);
+            troopToolStripMenuItem.Size = new Size(180, 22);
             troopToolStripMenuItem.Text = "Troop";
             // 
             // statusStrip1
