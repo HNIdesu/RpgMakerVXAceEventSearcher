@@ -5,11 +5,6 @@ namespace RpgMakerVXAceEventSearcher
 {
     internal static class Utility
     {
-        public class Command(int code, List<Base> parameters)
-        {
-            public int Code { get; private set; } = code;
-            public List<Base> Parameters { get; private set; } = parameters;
-        }
         public static IEnumerable<SearchCommandResult> SearchFromCommands(List<MapInfo> mapList,Func<Command,bool> func)
         {
             foreach (var map in mapList)

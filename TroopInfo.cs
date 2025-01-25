@@ -1,7 +1,7 @@
 ﻿namespace RpgMakerVXAceEventSearcher
 {
-    internal class TroopInfo
+    internal struct TroopInfo(List<EnemyInfo>  enemyList)
     {
-        public List<EnemyInfo> EnemyList = [];
+        public List<EnemyInfo> EnemyList = enemyList;
     }
 }

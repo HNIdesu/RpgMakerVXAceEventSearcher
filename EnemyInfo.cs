@@ -1,7 +1,9 @@
 ﻿namespace RpgMakerVXAceEventSearcher
 {
-    internal class EnemyInfo
+    internal struct EnemyInfo(int id,string name, List<Item> dropItems)
     {
-        public List<Item> DropItems = new List<Item>();
+        public int Id = id;
+        public string Name = name;
+        public List<Item> DropItems = dropItems;
     }
 }
