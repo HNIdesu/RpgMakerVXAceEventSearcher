@@ -24,10 +24,8 @@ namespace RpgMakerVXAceEventSearcher
                 ItemList.AddRange(_ItemList.Values);
             else
                 ItemList.AddRange(_ItemList.Values.Where(item => 
-                    CheckedItemTypes.Contains(item.ItemType) &&
-                    item.Name.Contains(SearchQuery)
+                    item.Name.Contains(SearchQuery) && (CheckedItemTypes.Count <= 0 || CheckedItemTypes.Contains(item.ItemType))
                 ));
-            
         }
         private string GetItemId(int id,EnumItemType itemType)=> $"{id}{Enum.GetName(typeof(EnumItemType), itemType)}";
         public void SearchReferences(Item item)
