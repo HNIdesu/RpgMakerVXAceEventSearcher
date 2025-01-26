@@ -1,7 +1,6 @@
 ﻿using RubyMarshal;
 using RubyMarshal.Types;
 using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RpgMakerVXAceEventSearcher
 {
@@ -35,10 +34,10 @@ namespace RpgMakerVXAceEventSearcher
             {
                 case EnumItemType.Item:
                     searchResult = SearchCommands(cmd => {
-                        var isItemChange =//增减物品指令
-                            cmd.Code == 126
+                        var isItemChange =
+                            cmd.Code == 126//增减物品
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
-                        var isDropItem = false;//是否为掉落物
+                        var isDropItem = false;
                         if(cmd.Code == 301
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 0//直接指定
                         )
@@ -59,7 +58,7 @@ namespace RpgMakerVXAceEventSearcher
                     searchResult = SearchCommands(cmd => {
                         var isWeaponChange = cmd.Code == 127//队伍增减武器指令
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
-                        var isDropItem = false;//是否为掉落物
+                        var isDropItem = false;
                         if (cmd.Code == 301
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 0//直接指定
                         )
@@ -81,8 +80,8 @@ namespace RpgMakerVXAceEventSearcher
                     {
                         var isArmorChange = cmd.Code == 128//队伍增减护甲指令
                         && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
-                        var isDropItem = false;//是否为掉落物
-                        if (cmd.Code == 301 
+                        var isDropItem = false;
+                        if (cmd.Code == 301 //战斗处理
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32()== 0//直接指定
                         )
                         {
@@ -93,18 +92,21 @@ namespace RpgMakerVXAceEventSearcher
                             }
                         }
                         var canBuy = false;
-                        if(cmd.Code == 302 || cmd.Code == 605)
+                        if(cmd.Code == 302 || cmd.Code == 605)//商店处理
                             canBuy = cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 2 && cmd.GetParameter(1)?.AsFixnum()?.ToInt32() == item.Id;
                         return isArmorChange || isDropItem || canBuy;
                     });
                     break;
                 case EnumItemType.Actor:
+                    searchResult = SearchCommands(cmd =>
+                            cmd.Code == 129 //队伍管理
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id
+                        );
                     break;
                 case EnumItemType.Event:
                     searchResult = SearchCommands(cmd =>
-                            cmd.Code == 117
-                            && cmd.Parameters[0] is Fixnum
-                            && cmd.Parameters[0].AsFixnum()!.ToInt32() == item.Id
+                            cmd.Code == 117 //公共事件
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id
                         );
                     break;
                 case EnumItemType.Variable:
