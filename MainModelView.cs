@@ -112,15 +112,13 @@ namespace RpgMakerVXAceEventSearcher
                 case EnumItemType.Variable:
                     searchResult = SearchCommands(cmd =>
                             cmd.Code == 122
-                            && cmd.Parameters[0] is Fixnum
-                            && cmd.Parameters[0].AsFixnum()!.ToInt32() == item.Id
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id
                         );
                     break;
                 case EnumItemType.Switch:
                     searchResult = SearchCommands(cmd =>
                             cmd.Code == 121
-                            && cmd.Parameters[0] is Fixnum
-                            && cmd.Parameters[0].AsFixnum()!.ToInt32() == item.Id
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id
                         );
                     break;
                 case EnumItemType.Troop:
@@ -175,12 +173,16 @@ namespace RpgMakerVXAceEventSearcher
             }
             foreach (var cv in CommonEventList)
             {
-                foreach (var _cmd in cv.Data.AsObject()["@list"].AsArray())
+                var cammandList = cv.Data?.AsObject()?["@list"].AsArray();
+                if(cammandList == null)
+                    continue;
+                foreach (var _cmd in cammandList)
                 {
                     var cmd = _cmd.AsObject();
-                    var code = cmd["@code"].AsFixnum().ToInt32();
-                    var parameters = cmd["@parameters"].AsArray();
-                    var command = new Command(code, [.. parameters]);
+                    var code = cmd?["@code"]?.AsFixnum()?.ToInt32();
+                    var parameters = cmd?["@parameters"].AsArray();
+                    if (code == null || parameters == null) continue;
+                    var command = new Command(code.Value, [.. parameters]);
                     if (func(command))
                     {
                         yield return new SearchResult(
