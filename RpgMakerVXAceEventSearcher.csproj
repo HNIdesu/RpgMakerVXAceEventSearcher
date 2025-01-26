@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Reference Include="RubyMarshal">
-      <HintPath>..\RubyMarshal\RubyMarshal\bin\Debug\net8.0\RubyMarshal.dll</HintPath>
+      <HintPath>libs\RubyMarshal.dll</HintPath>
     </Reference>
   </ItemGroup>
 
