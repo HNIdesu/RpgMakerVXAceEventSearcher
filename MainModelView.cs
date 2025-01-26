@@ -121,10 +121,9 @@ namespace RpgMakerVXAceEventSearcher
                     break;
                 case EnumItemType.Troop:
                     searchResult = SearchCommands( cmd =>
-                            cmd.Code == 301//战斗处理
-                            && cmd.Parameters.Count > 1
-                            && cmd.Parameters[1] is Fixnum
-                            && cmd.Parameters[1].AsFixnum()!.ToInt32() == item.Id
+                            cmd.Code == 301 //战斗处理
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 0//直接指定
+                            && cmd.GetParameter(1)?.AsFixnum()?.ToInt32() == item.Id
                         );
                     break;
                 default:
