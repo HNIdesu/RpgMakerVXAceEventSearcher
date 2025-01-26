@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             ColumnHeader columnHeader1;
             ColumnHeader columnHeader2;
             ColumnHeader columnHeader3;
@@ -58,8 +57,6 @@
             listView1 = new ListView();
             listView_SearchResult = new ListView();
             folderBrowserDialog1 = new FolderBrowserDialog();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            SearchReferenceToolStripMenuItem = new ToolStripMenuItem();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
@@ -78,7 +75,6 @@
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
-            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // columnHeader1
@@ -284,7 +280,7 @@
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
-            listView1.MouseUp += listView1_MouseUp;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // listView_SearchResult
             // 
@@ -300,19 +296,6 @@
             listView_SearchResult.UseCompatibleStateImageBehavior = false;
             listView_SearchResult.View = View.Details;
             // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { SearchReferenceToolStripMenuItem });
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(125, 26);
-            contextMenuStrip1.ItemClicked += contextMenuStrip1_ItemClicked;
-            // 
-            // SearchReferenceToolStripMenuItem
-            // 
-            SearchReferenceToolStripMenuItem.Name = "SearchReferenceToolStripMenuItem";
-            SearchReferenceToolStripMenuItem.Size = new Size(124, 22);
-            SearchReferenceToolStripMenuItem.Text = "查找调用";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -324,7 +307,6 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "RMEventSearcher";
-            Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
@@ -336,7 +318,6 @@
             splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
-            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -351,8 +332,6 @@
         private SplitContainer splitContainer2;
         private TextBox textBox_FilterItem;
         private FolderBrowserDialog folderBrowserDialog1;
-        private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem SearchReferenceToolStripMenuItem;
         private ListView listView_SearchResult;
         private ListView listView1;
         private ToolStripMenuItem filterToolStripMenuItem;

@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace RpgMakerVXAceEventSearcher
 {
     internal sealed partial class Form1 : Form
@@ -25,41 +27,6 @@ namespace RpgMakerVXAceEventSearcher
                 }).ToArray());
             }
 
-        }
-
-        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-            if (e.ClickedItem == SearchReferenceToolStripMenuItem)
-            {
-                _MainModelView.SearchReferences((Item)contextMenuStrip1.Tag!);
-                listView_SearchResult.Items.Clear();
-                foreach (var result in _MainModelView.SearchResultList)
-                {
-                    listView_SearchResult.Items.Add(new ListViewItem([
-                        result.MapID.ToString(),
-                        result.MapName,
-                        result.EventID.ToString(),
-                        result.EventName,
-                        result.PageIndex.ToString(),
-                        result.Location.ToString()
-                    ]));
-                }
-            }
-
-        }
-
-        private void listView1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                var item = listView1.GetItemAt(e.X, e.Y);
-                if (item != null)
-                {
-                    contextMenuStrip1.Tag = item.Tag;
-                    contextMenuStrip1.Show(Control.MousePosition);
-                }
-            }
         }
 
         private void filterToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -101,9 +68,23 @@ namespace RpgMakerVXAceEventSearcher
             }).ToArray());
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (listView1.SelectedItems.Count <= 0) return;
+            if (listView1.SelectedItems[0].Tag is not Item selectedItem) return;
+            listView_SearchResult.Items.Clear();
+            _MainModelView.SearchReferences(selectedItem);
+            foreach (var result in _MainModelView.SearchResultList)
+            {
+                listView_SearchResult.Items.Add(new ListViewItem([
+                    result.MapID.ToString(),
+                        result.MapName,
+                        result.EventID.ToString(),
+                        result.EventName,
+                        result.PageIndex.ToString(),
+                        result.Location.ToString()
+                ]));
+            }
         }
     }
 }
