@@ -2,7 +2,7 @@
 
 namespace RpgMakerVXAceEventSearcher
 {
-    internal class Command(int code, List<Base> parameters)
+    internal sealed class Command(int code, List<Base> parameters)
     {
         public int Code { get; private set; } = code;
         public List<Base> Parameters { get; private set; } = parameters;

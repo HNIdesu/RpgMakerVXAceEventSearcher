@@ -1,9 +1,7 @@
 ﻿using RubyMarshal;
 using RubyMarshal.Types;
-using System;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RpgMakerVXAceEventSearcher
 {
@@ -11,8 +9,9 @@ namespace RpgMakerVXAceEventSearcher
     {
         private readonly Dictionary<string,Item> _ItemList = [];
         public List<Item> ItemList { get; private set; } = [];
-        public List<MapInfo> MapList { get; private set; } = [];
-        public List<SearchCommandResult> SearchResultList { get; private set; } = [];
+        public List<Map> MapList { get; private set; } = [];
+        public List<CommonEvent> CommonEventList { get; private set; } = [];
+        public List<SearchResult> SearchResultList { get; private set; } = [];
         private readonly Dictionary<int, TroopInfo> _TroopList = [];
         private readonly Dictionary<int, EnemyInfo> _EnemyList = [];
         public HashSet<EnumItemType> CheckedItemTypes { get; private set; } = [];
@@ -31,11 +30,11 @@ namespace RpgMakerVXAceEventSearcher
         public void SearchReferences(Item item)
         {
             SearchResultList.Clear();
-            IEnumerable<SearchCommandResult>? searchResult = null;
+            IEnumerable<SearchResult>? searchResult = null;
             switch (item.ItemType)
             {
                 case EnumItemType.Item:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd => {
+                    searchResult = SearchCommands(cmd => {
                         var isItemChange =//增减物品指令
                             cmd.Code == 126
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
@@ -54,7 +53,7 @@ namespace RpgMakerVXAceEventSearcher
                     });
                     break;
                 case EnumItemType.Weapon:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd => {
+                    searchResult = SearchCommands(cmd => {
                         var isWeaponChange = cmd.Code == 127//队伍增减武器指令
                              && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
                         var isDropItem = false;//是否为掉落物
@@ -72,7 +71,7 @@ namespace RpgMakerVXAceEventSearcher
                     });
                     break;
                 case EnumItemType.Armor:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd =>
+                    searchResult = SearchCommands(cmd =>
                     {
                         try
                         {
@@ -100,28 +99,28 @@ namespace RpgMakerVXAceEventSearcher
                 case EnumItemType.Actor:
                     break;
                 case EnumItemType.Event:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd =>
+                    searchResult = SearchCommands(cmd =>
                             cmd.Code == 117
                             && cmd.Parameters[0] is Fixnum
                             && cmd.Parameters[0].AsFixnum()!.ToInt32() == item.Id
                         );
                     break;
                 case EnumItemType.Variable:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd =>
+                    searchResult = SearchCommands(cmd =>
                             cmd.Code == 122
                             && cmd.Parameters[0] is Fixnum
                             && cmd.Parameters[0].AsFixnum()!.ToInt32() == item.Id
                         );
                     break;
                 case EnumItemType.Switch:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd =>
+                    searchResult = SearchCommands(cmd =>
                             cmd.Code == 121
                             && cmd.Parameters[0] is Fixnum
                             && cmd.Parameters[0].AsFixnum()!.ToInt32() == item.Id
                         );
                     break;
                 case EnumItemType.Troop:
-                    searchResult = Utility.SearchFromCommands(MapList, cmd =>
+                    searchResult = SearchCommands( cmd =>
                             cmd.Code == 301//战斗处理
                             && cmd.Parameters.Count > 1
                             && cmd.Parameters[1] is Fixnum
@@ -133,6 +132,62 @@ namespace RpgMakerVXAceEventSearcher
             }
             if (searchResult == null) return;
             SearchResultList.AddRange(searchResult);
+        }
+
+        private IEnumerable<SearchResult> SearchCommands(
+            Func<Command, bool> func)
+        {
+            foreach (var map in MapList)
+            {
+                foreach (var ev in map.Data.AsObject()["@events"].AsHash())
+                {
+                    int pageIndex = 1;
+                    foreach (var page in ev.Value.AsObject()["@pages"].AsArray())
+                    {
+                        foreach (var _cmd in page.AsObject()["@list"].AsArray())
+                        {
+                            var cmd = _cmd.AsObject();
+                            var code = cmd["@code"].AsFixnum().ToInt32();
+                            var parameters = cmd["@parameters"].AsArray();
+                            var command = new Command(code, [.. parameters]);
+                            if (func(command))
+                            {
+                                yield return new SearchResult(
+                                    pageIndex: pageIndex,
+                                    eventName: ev.Value.AsObject()["@name"].AsInstanceVariable().Base.AsString().Value,
+                                    mapName: map.Name,
+                                    mapId: map.ID,
+                                    eventId: ev.Value.AsObject()["@id"].AsFixnum().ToInt32(),
+                                    location: new Point(
+                                        x: ev.Value.AsObject()["@x"].AsFixnum().ToInt32(),
+                                        y: ev.Value.AsObject()["@y"].AsFixnum().ToInt32()
+                                    )
+                                );
+                                break;
+                            }
+                        }
+                        pageIndex++;
+                    }
+                }
+            }
+            foreach (var cv in CommonEventList)
+            {
+                foreach (var _cmd in cv.Data.AsObject()["@list"].AsArray())
+                {
+                    var cmd = _cmd.AsObject();
+                    var code = cmd["@code"].AsFixnum().ToInt32();
+                    var parameters = cmd["@parameters"].AsArray();
+                    var command = new Command(code, [.. parameters]);
+                    if (func(command))
+                    {
+                        yield return new SearchResult(
+                            eventName: cv.Name,
+                            eventId:cv.ID
+                        );
+                        break;
+                    }
+                }
+            }
         }
         public void LoadItemList(string gameDirectory)
         {
@@ -155,7 +210,7 @@ namespace RpgMakerVXAceEventSearcher
         {
             foreach (string filename in Directory.EnumerateFiles(path, "*.rvdata2"))
                 if (Regex.IsMatch(filename, "Map\\d{3}.rvdata2"))//Map file
-                    MapList.Add(new MapInfo() { Map = new Decoder().Decode(File.OpenRead(filename)) });
+                    MapList.Add(new Map() { Data = new Decoder().Decode(File.OpenRead(filename)) });
         }
 
         //系统数据，包括全局开关和全局变量
@@ -247,20 +302,26 @@ namespace RpgMakerVXAceEventSearcher
         private void LoadCommonEvent(string path)
         {
             var root = new Decoder().Decode(File.OpenRead(path)).AsArray();
+            if (root == null)
+            {
+                MessageBox.Show("Failed to load common events.");
+                return;
+            }
             foreach (var obj in root)
             {
-                if (obj is Nil)
-                    continue;
+                if (obj is Nil) continue;
                 var eventInfo = obj.AsObject();
-                var id = eventInfo["@id"].AsFixnum().ToInt32();
+                var name = eventInfo?["@name"].AsInstanceVariable()?.Base.AsString()?.Value;
+                var id = eventInfo!["@id"]?.AsFixnum()?.ToInt32();
                 _ItemList.Add(
-                    GetItemId(id, EnumItemType.Event),
+                    GetItemId(id!.Value, EnumItemType.Event),
                     new Item(
-                        id,
-                        eventInfo["@name"].AsInstanceVariable()?.Base.AsString()?.Value,
+                        id!.Value,
+                        name!,
                         EnumItemType.Event
                     )
                 );
+                CommonEventList.Add(new CommonEvent(id.Value, name!) { Data = eventInfo });
             }
         }
 

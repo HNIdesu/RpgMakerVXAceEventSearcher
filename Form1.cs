@@ -7,7 +7,7 @@ namespace RpgMakerVXAceEventSearcher
             InitializeComponent();
         }
 
-        private MainModelView _MainModelView = new MainModelView();
+        private readonly MainModelView _MainModelView = new MainModelView();
 
         private void OpenProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -41,7 +41,7 @@ namespace RpgMakerVXAceEventSearcher
                         result.MapName,
                         result.EventID.ToString(),
                         result.EventName,
-                        (1+result.PageIndex).ToString(),
+                        result.PageIndex.ToString(),
                         result.Location.ToString()
                     ]));
                 }
