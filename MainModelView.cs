@@ -49,13 +49,16 @@ namespace RpgMakerVXAceEventSearcher
                                 isDropItem = _TroopList[troopId.Value].EnemyList.Any(enemy => enemy.DropItems.Any(dropItem => dropItem == item));
                             }
                         }
-                        return isItemChange || isDropItem;
+                        var canBuy = false;
+                        if (cmd.Code == 302 || cmd.Code == 605)
+                            canBuy = cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 0 && cmd.GetParameter(1)?.AsFixnum()?.ToInt32() == item.Id;
+                        return isItemChange || isDropItem || canBuy;
                     });
                     break;
                 case EnumItemType.Weapon:
                     searchResult = SearchCommands(cmd => {
                         var isWeaponChange = cmd.Code == 127//队伍增减武器指令
-                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
                         var isDropItem = false;//是否为掉落物
                         if (cmd.Code == 301
                             && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 0//直接指定
@@ -67,33 +70,32 @@ namespace RpgMakerVXAceEventSearcher
                                 isDropItem = _TroopList[troopId.Value].EnemyList.Any(enemy => enemy.DropItems.Any(dropItem => dropItem == item));
                             }
                         }
-                        return isWeaponChange || isDropItem;
+                        var canBuy = false;
+                        if (cmd.Code == 302 || cmd.Code == 605)
+                            canBuy = cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 1 && cmd.GetParameter(1)?.AsFixnum()?.ToInt32() == item.Id;
+                        return isWeaponChange || isDropItem || canBuy;
                     });
                     break;
                 case EnumItemType.Armor:
                     searchResult = SearchCommands(cmd =>
                     {
-                        try
+                        var isArmorChange = cmd.Code == 128//队伍增减护甲指令
+                        && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
+                        var isDropItem = false;//是否为掉落物
+                        if (cmd.Code == 301 
+                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32()== 0//直接指定
+                        )
                         {
-                            var isArmorChange = cmd.Code == 128//队伍增减护甲指令
-                            && cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == item.Id;
-                            bool isDropItem = false;//是否为掉落物
-                            if (cmd.Code == 301 
-                                && cmd.GetParameter(0)?.AsFixnum()?.ToInt32()== 0//直接指定
-                            )
+                            var troopId = cmd.GetParameter(1)?.AsFixnum()?.ToInt32();
+                            if (troopId != null)
                             {
-                                var troopId = cmd.GetParameter(1)?.AsFixnum()?.ToInt32();
-                                if (troopId != null)
-                                {
-                                    isDropItem = _TroopList[troopId.Value].EnemyList.Any(enemy => enemy.DropItems.Any(dropItem => dropItem == item));
-                                }
+                                isDropItem = _TroopList[troopId.Value].EnemyList.Any(enemy => enemy.DropItems.Any(dropItem => dropItem == item));
                             }
-                            return isArmorChange || isDropItem;
                         }
-                        catch(Exception)
-                        {
-                            return false;
-                        }
+                        var canBuy = false;
+                        if(cmd.Code == 302 || cmd.Code == 605)
+                            canBuy = cmd.GetParameter(0)?.AsFixnum()?.ToInt32() == 2 && cmd.GetParameter(1)?.AsFixnum()?.ToInt32() == item.Id;
+                        return isArmorChange || isDropItem || canBuy;
                     });
                     break;
                 case EnumItemType.Actor:
