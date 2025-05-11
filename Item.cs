@@ -5,7 +5,7 @@ namespace RpgMakerVXAceEventSearcher
     internal class Item(int id,string name,EnumItemType enumItemType)
     {
         public int Id { get;private set; } = id;
-        public string Name { get;private set; } = name;
+        public string? Name { get;private set; } = name;
         public EnumItemType ItemType { get;private set; } = enumItemType;
         public override string ToString()=> $"id:{Id} Name:{Name}";
     }

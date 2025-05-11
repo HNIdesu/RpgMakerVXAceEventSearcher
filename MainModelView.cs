@@ -22,7 +22,7 @@ namespace RpgMakerVXAceEventSearcher
                 ItemList.AddRange(_ItemList.Values);
             else
                 ItemList.AddRange(_ItemList.Values.Where(item => 
-                    item.Name.Contains(SearchQuery) && (CheckedItemTypes.Count <= 0 || CheckedItemTypes.Contains(item.ItemType))
+                    item.Name?.Contains(SearchQuery) == true && (CheckedItemTypes.Count <= 0 || CheckedItemTypes.Contains(item.ItemType))
                 ));
         }
         private string GetItemId(int id,EnumItemType itemType)=> $"{id}{Enum.GetName(typeof(EnumItemType), itemType)}";
@@ -361,11 +361,12 @@ namespace RpgMakerVXAceEventSearcher
                     continue;
                 var actorInfo = obj.AsObject();
                 var id = actorInfo["@id"].AsFixnum().ToInt32();
+                var itemName = actorInfo["@name"]?.AsString()?.Value ?? actorInfo["@name"]?.AsInstanceVariable()?.Base?.AsString()?.Value ?? "";
                 _ItemList.Add(
                     GetItemId(id, EnumItemType.Actor),
                     new Item(
                         id,
-                        actorInfo["@name"].AsInstanceVariable().Base.AsString().Value,
+                        itemName,
                         EnumItemType.Actor
                     )
                 );
